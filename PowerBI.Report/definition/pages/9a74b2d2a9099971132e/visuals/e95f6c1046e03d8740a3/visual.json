@@ -1,0 +1,343 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e95f6c1046e03d8740a3",
+  "position": {
+    "x": 0,
+    "y": 428.88888888888886,
+    "z": 10000,
+    "height": 291.11111111111109,
+    "width": 702.22222222222217,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_driver"
+                    }
+                  },
+                  "Property": "Driver Name"
+                }
+              },
+              "queryRef": "dim_driver.Driver Name",
+              "nativeQueryRef": "Driver Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_driver"
+                    }
+                  },
+                  "Property": "Driver Role"
+                }
+              },
+              "queryRef": "dim_driver.Driver Role",
+              "nativeQueryRef": "Driver Role"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_driver"
+                    }
+                  },
+                  "Property": "Base Depot"
+                }
+              },
+              "queryRef": "dim_driver.Base Depot",
+              "nativeQueryRef": "Base Depot"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measure"
+                    }
+                  },
+                  "Property": "Driver Days Worked"
+                }
+              },
+              "queryRef": "_Measure.Driver Days Worked",
+              "nativeQueryRef": "Driver Days Worked"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measure"
+                    }
+                  },
+                  "Property": "Total Km"
+                }
+              },
+              "queryRef": "_Measure.Total Km",
+              "nativeQueryRef": "Total Km"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measure"
+                    }
+                  },
+                  "Property": "Revenue"
+                }
+              },
+              "queryRef": "_Measure.Revenue",
+              "nativeQueryRef": "Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measure"
+                    }
+                  },
+                  "Property": "Driver Cost"
+                }
+              },
+              "queryRef": "_Measure.Driver Cost",
+              "nativeQueryRef": "Driver Cost"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measure"
+                  }
+                },
+                "Property": "Total Km"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnFormatting": [
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#23756b'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#a13434'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'foreground'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
+                }
+              },
+              "totalMatchingOption": {
+                "expr": {
+                  "Literal": {
+                    "Value": "1L"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measure.Revenue"
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "104.46700498935705D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measure.Revenue"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "98.04043306107778D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measure.Driver Days Worked"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5de5589e57eb09b10e9a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_driver"
+              }
+            },
+            "Property": "Driver Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "509219f0005e70a0bd23",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_driver"
+              }
+            },
+            "Property": "Driver Role"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7a501e2c6646ea2e51db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_driver"
+              }
+            },
+            "Property": "Base Depot"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "95bec5706d11206c7131",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measure"
+              }
+            },
+            "Property": "Driver Days Worked"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3bc60b86b7a02c3c3571",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measure"
+              }
+            },
+            "Property": "Total Km"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4a17709945cd00d29ba3",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measure"
+              }
+            },
+            "Property": "Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "88c06bc8677ab6e71902",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measure"
+              }
+            },
+            "Property": "Driver Cost"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

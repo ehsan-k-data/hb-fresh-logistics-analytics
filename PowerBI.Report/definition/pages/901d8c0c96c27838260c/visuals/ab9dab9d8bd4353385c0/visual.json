@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "ab9dab9d8bd4353385c0",
+  "position": {
+    "x": 1053.3333333333333,
+    "y": 90,
+    "z": 9000,
+    "height": 86.666666666666671,
+    "width": 226.66666666666666,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_manifest"
+                    }
+                  },
+                  "Property": "Route Band"
+                }
+              },
+              "queryRef": "fact_manifest.Route Band",
+              "nativeQueryRef": "Route Band",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "orientation": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c684efc0a97530d65b8b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_manifest"
+              }
+            },
+            "Property": "Route Band"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

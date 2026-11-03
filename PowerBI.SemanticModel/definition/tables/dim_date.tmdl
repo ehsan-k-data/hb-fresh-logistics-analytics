@@ -1,0 +1,116 @@
+table dim_date
+	lineageTag: 73669133-73d5-4ed1-9ba0-7e3f43f6f724
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: dddd\, d mmmm yyyy
+		lineageTag: 70bc40e6-b0d9-47b3-b640-4d0a150291ba
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year
+		formatString: 0
+		lineageTag: 8075ce92-7420-4292-bdb8-59a4cfbab698
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No'
+		formatString: 0
+		lineageTag: aa963fbc-284b-4489-8093-e572c0973747
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month No]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: a528beed-c819-4774-baad-4cfe963c83eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: 'Month No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: 52d5093e-e38c-49b5-b919-94b823c6f963
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday No'
+		formatString: 0
+		lineageTag: 9897978c-1db0-4999-8183-b5bbb1f48647
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Weekday No]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		lineageTag: 9c3f7439-ff06-4321-8db4-f504c5b95473
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Weekday]
+		sortByColumn: 'Weekday No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Start'
+		formatString: General Date
+		lineageTag: 0113275b-f278-43ca-8a7e-9186198cc15c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Week Start]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth = YEAR ( dim_date[Date] ) * 100 + MONTH ( dim_date[Date] )
+		formatString: 0
+		lineageTag: 1cf22fe5-ac48-48ed-8ddd-842d88139479
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Year' = FORMAT ( dim_date[Date], "mmm yyyy" )
+		lineageTag: 55841e80-d503-4ebf-b832-5590d830bdee
+		summarizeBy: none
+		sortByColumn: YearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short' = FORMAT(dim_date[Date], "MMM yy")
+		lineageTag: a835fc07-d015-4369-8568-8e8d79ac9b85
+		summarizeBy: none
+		sortByColumn: YearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDARAUTO (),
+				    "Year", YEAR ( [Date] ),
+				    "Month No", MONTH ( [Date] ),
+				    "Month", FORMAT ( [Date], "MMM" ),
+				    "Year-Month", FORMAT ( [Date], "YYYY-MM" ),
+				    "Weekday No", WEEKDAY ( [Date], 2 ),
+				    "Weekday", FORMAT ( [Date], "ddd" ),
+				    "Week Start", [Date] - WEEKDAY ( [Date], 2 ) + 1
+				)
+
+	annotation PBI_Id = f0ca7586a12345f3a9a047a1deb7421b
+

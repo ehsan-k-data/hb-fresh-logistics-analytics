@@ -1,0 +1,54 @@
+relationship AutoDetected_bf81ee09-a5cd-4833-a395-144761f13b03
+	fromColumn: fact_leg.Customer
+	toColumn: dim_customer.'Customer Code'
+
+relationship b3e5e215-97dc-19a9-ed07-cc90eade7703
+	fromColumn: fact_leg.Driver
+	toColumn: dim_driver.'Driver Code'
+
+relationship a265d73f-08b7-dc86-6ec6-bdab80a63d47
+	fromColumn: fact_leg.Subby
+	toColumn: dim_subcontractor.'Subcontractor Code'
+
+relationship 2756f404-cfae-6c2e-c01a-52bbe90ae154
+	fromColumn: fact_manifest.Vehicle
+	toColumn: dim_vehicle.Registration
+
+relationship e9f01774-e498-cc31-54dd-85cd6cc5e78f
+	fromColumn: fact_leg.RouteFrom
+	toColumn: dim_location.'Location Code'
+
+relationship 918c8617-558b-c86b-670f-4247fe469117
+	isActive: false
+	fromColumn: fact_leg.RouteTo
+	toColumn: dim_location.'Location Code'
+
+relationship d169f6b0-5420-d83c-7361-880d2f616174
+	isActive: false
+	fromColumn: fact_manifest.ETA
+	toColumn: dim_date.Date
+
+relationship 905ffc3d-7ba1-294f-1997-1a11469d5e3d
+	fromColumn: fact_manifest.ETD
+	toColumn: dim_date.Date
+
+relationship e626f05f-4943-5042-267d-a483bf76e48f
+	fromColumn: fact_leg.Date
+	toColumn: dim_date.Date
+
+relationship fc890f0e-96f0-7d41-422e-8124108b917f
+	fromColumn: fact_manifest.Driver
+	toColumn: dim_driver.'Driver Code'
+
+relationship fee58a65-7741-940f-ac95-69a84635c2c5
+	fromColumn: fact_manifest.Subby
+	toColumn: dim_subcontractor.'Subcontractor Code'
+
+relationship AutoDetected_f5baa082-52af-46e4-b2b1-8de6a9de4615
+	fromColumn: fact_manifest.Route
+	toColumn: dim_route.Route
+
+relationship AutoDetected_ad33d9a3-cac7-4d2a-9594-48959afd5e8b
+	fromColumn: fact_leg.Route
+	toColumn: dim_route.Route
+

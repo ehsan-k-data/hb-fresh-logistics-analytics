@@ -1,0 +1,64 @@
+table dim_vehicle
+	lineageTag: 92e4090c-2c1c-4e58-a2a6-3151e21cf284
+
+	column 'Fleet Code'
+		dataType: string
+		lineageTag: 79d38120-8d91-4e88-8a27-cde76f35578a
+		summarizeBy: none
+		sourceColumn: Fleet Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Registration
+		dataType: string
+		lineageTag: e8ab2d1c-992b-4680-9bd3-5f4444fba3b7
+		summarizeBy: none
+		sourceColumn: Registration
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Type'
+		dataType: string
+		lineageTag: f07299da-1ebb-4e9f-a5f2-a64fbb5fa87d
+		summarizeBy: none
+		sourceColumn: Vehicle Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ownership
+		dataType: string
+		lineageTag: b4896802-eaff-42b0-a9ee-45c8b92b7a68
+		summarizeBy: none
+		sourceColumn: Ownership
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Use'
+		dataType: string
+		lineageTag: 87566126-43f2-4550-9f55-fed1d911a5c6
+		summarizeBy: none
+		sourceColumn: Primary Use
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Label' = dim_vehicle[Fleet Code] & " · " & dim_vehicle[Registration]
+		lineageTag: 1c42a788-9d66-48a2-85f2-8dc8b7c5f14c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_vehicle = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_vehicle.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Fleet Code", type text}, {"Registration", type text}, {"Vehicle Type", type text}, {"Ownership", type text}, {"Primary Use", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

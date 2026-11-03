@@ -1,0 +1,58 @@
+table dim_location
+	lineageTag: a2c3b618-d759-4df2-a2c9-a036cddcbe1b
+
+	column 'Location Code'
+		dataType: string
+		lineageTag: 67ec4908-0703-446d-9f23-2fbf1da7e594
+		summarizeBy: none
+		sourceColumn: Location Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Name'
+		dataType: string
+		lineageTag: b8c22e08-f0c1-45a7-b34d-f9b1bb01b4d0
+		summarizeBy: none
+		sourceColumn: Location Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Type'
+		dataType: string
+		lineageTag: a6001d7e-2258-44b5-8656-c3dae4ceb53c
+		summarizeBy: none
+		sourceColumn: Location Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Suburb
+		dataType: string
+		lineageTag: a1b2bb5c-80be-46dd-a843-efa01565b8d3
+		summarizeBy: none
+		sourceColumn: Suburb
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 4b904d47-58e9-49e8-a3bf-417f9b436684
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_location = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_location.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Location Code", type text}, {"Location Name", type text}, {"Location Type", type text}, {"Suburb", type text}, {"State", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

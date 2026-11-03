@@ -1,0 +1,7 @@
+expression DataFolder = "C:\Users\test\OneDrive\Desktop\TF\harbourline-fresh-analytics\harbourline-fresh-analytics\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: cfb8f66a-2823-4ced-bd3d-82d63ac49e99
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

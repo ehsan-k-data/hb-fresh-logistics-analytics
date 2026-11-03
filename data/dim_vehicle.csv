@@ -1,0 +1,35 @@
+Fleet Code,Registration,Vehicle Type,Ownership,Primary Use
+V101,1USL489,Prime Mover,Owned,Linehaul
+V102,2BTE184,Prime Mover,Owned,Linehaul
+V103,2ZTU745,Prime Mover,Owned,Linehaul
+V104,2MCW504,Prime Mover,Owned,Linehaul
+V105,2JEY802,Prime Mover,Owned,Linehaul
+V106,2KVN498,Prime Mover,Owned,Linehaul
+V107,1FCN898,Prime Mover,Owned,Linehaul
+V108,1WWG667,Prime Mover,Owned,Linehaul
+V109,1UTJ161,Prime Mover,Owned,Linehaul
+V110,2LXS799,Prime Mover,Owned,Linehaul
+V111,2EJL547,Prime Mover,Owned,Linehaul
+V112,1NDU714,Prime Mover,Owned,Linehaul
+V201,2UJZ469,Rigid (12 pallet),Owned,Metro/Regional
+V202,1XJB522,Rigid (12 pallet),Owned,Metro/Regional
+V203,2ELC717,Rigid (12 pallet),Owned,Metro/Regional
+V204,1HFN702,Rigid (12 pallet),Owned,Metro/Regional
+V205,2LDW666,Rigid (12 pallet),Owned,Metro/Regional
+V206,2CHU848,Rigid (12 pallet),Owned,Metro/Regional
+V207,1VWJ907,Rigid (12 pallet),Owned,Metro/Regional
+V208,1FSR225,Rigid (12 pallet),Owned,Metro/Regional
+V209,2EVA816,Rigid (12 pallet),Owned,Metro/Regional
+V210,2USL733,Rigid (12 pallet),Owned,Metro/Regional
+V211,1UNL554,Rigid (12 pallet),Owned,Metro/Regional
+V212,2ADF202,Rigid (12 pallet),Owned,Metro/Regional
+V301,1SSL868,Refrigerated Van,Owned,Metro
+V302,2BUP670,Refrigerated Van,Owned,Metro
+V303,2NCN814,Refrigerated Van,Owned,Metro
+V304,1PAH492,Refrigerated Van,Owned,Metro
+V305,2EGK992,Refrigerated Van,Owned,Metro
+V306,2AFV152,Refrigerated Van,Owned,Metro
+RENTAL,2GYG490,Rigid (12 pallet),Rental,Metro/Regional
+RENTAL,2CNM804,Rigid (12 pallet),Rental,Metro/Regional
+RENTAL,2SKK475,Rigid (12 pallet),Rental,Metro/Regional
+SUBCON,SUBCON,Subcontractor,Subcontractor,Any

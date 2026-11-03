@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ae94dd8ded401be838dd",
+  "displayName": "Route & Customer Profitability",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "ffa089ce308619d0a933",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "e7de1da004e030969066",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "227770cf2884dbd44b52",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "da599f2b2e8beb820d0b",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "75000f7dec5605566baa",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "33910cbd64ca2e982908",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "9d3f9f34e2d0c0224365",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6782dbab514d931113e5",
+      "target": "623ee8ddda7eb909eb19",
+      "type": "DataFilter"
+    }
+  ]
+}

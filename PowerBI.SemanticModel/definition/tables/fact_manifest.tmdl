@@ -1,0 +1,198 @@
+table fact_manifest
+	lineageTag: 800ee9e7-e9e9-451f-8906-748c1fe50eb6
+
+	column Manifest
+		dataType: int64
+		formatString: 0
+		lineageTag: afd2d247-ce66-4655-93c5-8dc92182cb79
+		summarizeBy: none
+		sourceColumn: Manifest
+
+		annotation SummarizationSetBy = User
+
+	column Vehicle
+		dataType: string
+		lineageTag: e3db0384-970b-4aaa-a316-3e3a6bdb71cb
+		summarizeBy: none
+		sourceColumn: Vehicle
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fleet Code'
+		dataType: string
+		lineageTag: 6cd31379-2647-4756-9099-581c0060ac57
+		summarizeBy: none
+		sourceColumn: Fleet Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column ETA
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ae57549f-9b4c-4d57-a1bf-ad266edc8ef7
+		summarizeBy: none
+		sourceColumn: ETA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ETD
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b6db6505-351f-4094-80d7-89480d044e96
+		summarizeBy: none
+		sourceColumn: ETD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Route
+		dataType: string
+		lineageTag: 4315e77d-5830-4a57-a13f-db74e25a9304
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Route Band'
+		dataType: string
+		lineageTag: 97debbce-3b0b-4480-8700-cfe5474eee6b
+		summarizeBy: none
+		sourceColumn: Route Band
+
+		annotation SummarizationSetBy = Automatic
+
+	column Klm
+		dataType: int64
+		formatString: 0
+		lineageTag: b6b85e4a-dfa5-4593-bfd8-5a5f0abac79b
+		summarizeBy: sum
+		sourceColumn: Klm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Driver
+		dataType: string
+		lineageTag: 3f86bd93-c109-4ca5-9f5f-df3f2641017d
+		summarizeBy: none
+		sourceColumn: Driver
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subby
+		dataType: string
+		lineageTag: 4511a446-3df5-4b19-ac42-7b5303fdac95
+		summarizeBy: none
+		sourceColumn: Subby
+
+		annotation SummarizationSetBy = Automatic
+
+	column Origin
+		dataType: string
+		lineageTag: 0ada5b48-235c-4871-87e4-35d11b400724
+		summarizeBy: none
+		sourceColumn: Origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column Destination
+		dataType: string
+		lineageTag: 31c8c151-80aa-4846-90bf-68db1d6d4e8e
+		summarizeBy: none
+		sourceColumn: Destination
+
+		annotation SummarizationSetBy = Automatic
+
+	column Items
+		dataType: int64
+		formatString: 0
+		lineageTag: b9db8843-497e-4d6f-b17f-ed3d630b2653
+		summarizeBy: sum
+		sourceColumn: Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weight
+		dataType: double
+		lineageTag: a91604da-5a92-4ae3-a9be-58e5885e8ee7
+		summarizeBy: sum
+		sourceColumn: Weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Volume
+		dataType: double
+		lineageTag: 665921d5-64b5-4a33-a93a-396b09890cd4
+		summarizeBy: sum
+		sourceColumn: Volume
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Amount
+		dataType: double
+		lineageTag: a2450fc4-731e-4ce2-b4a7-6594346d0d9b
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Driver Cost'
+		dataType: double
+		lineageTag: c3166129-81a1-4931-8423-582bc59ce9d8
+		summarizeBy: sum
+		sourceColumn: Driver Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Subby Cost'
+		dataType: double
+		lineageTag: eb36068e-ab90-4d02-9e63-928a05f77098
+		summarizeBy: sum
+		sourceColumn: Subby Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Truck Cost'
+		dataType: double
+		lineageTag: 5dd087cf-faaf-4cf0-bfbe-a29bd2b5322b
+		summarizeBy: sum
+		sourceColumn: Truck Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fleet Source' =
+			
+			IF ( fact_manifest[Subby Cost] > 0, "Subcontractor", "Own Fleet" )
+		lineageTag: 32c58708-8ac9-47e0-a4c9-b9c00dc5ba5c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_manifest = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_manifest.csv"),[Delimiter=",", Columns=19, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Manifest", Int64.Type}, {"Vehicle", type text}, {"Fleet Code", type text}, {"ETA", type date}, {"ETD", type date}, {"Route", type text}, {"Route Band", type text}, {"Klm", Int64.Type}, {"Driver", type text}, {"Subby", type text}, {"Origin", type text}, {"Destination", type text}, {"Items", Int64.Type}, {"Weight", type number}, {"Volume", type number}, {"Amount", type number}, {"Driver Cost", type number}, {"Subby Cost", type number}, {"Truck Cost", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

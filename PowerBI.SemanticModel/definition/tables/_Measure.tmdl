@@ -1,0 +1,232 @@
+table _Measure
+	lineageTag: bdf7b089-9182-4c51-b78b-3a0d9a7cc148
+
+	measure 'Legs by Destination' =
+			
+			CALCULATE ( COUNTROWS ( fact_leg ),
+			    USERELATIONSHIP ( dim_location[Location Code], fact_leg[RouteTo] ) )
+		formatString: 0
+		lineageTag: bc413b1c-9c4a-4d01-9a9d-61f5746812ac
+
+	measure 'Total Legs' = COUNTROWS ( fact_leg )
+		formatString: #,0
+		lineageTag: 0190eb17-c7bc-4c7d-b018-5fd417738d17
+
+	measure 'Total Manifests' = COUNTROWS ( fact_manifest )
+		formatString: #,0
+		lineageTag: 7a789287-e8e8-487f-9c8a-821f7069dbaf
+
+	measure 'Total Km' = SUM ( fact_manifest[Klm] )
+		formatString: #,0.0
+		lineageTag: 15acf635-61ca-462e-95b4-30cb274ed6ad
+
+	measure Revenue = SUM ( fact_manifest[Amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 751c80a1-5e25-4167-ab9e-ba72de509802
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Driver Cost' = SUM ( fact_manifest[Driver Cost] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 1b2764d6-2953-467a-a5d4-0902b90e35aa
+
+	measure 'Subby Cost' = SUM ( fact_manifest[Subby Cost] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9fda177c-ee2f-4d32-b1f8-edb5d7cca71f
+
+	measure 'Truck Cost' = SUM ( fact_manifest[Truck Cost] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: a498b004-378a-4228-8899-939722f37afd
+
+	measure 'Total Cost' = [Driver Cost] + [Subby Cost] + [Truck Cost]
+		lineageTag: a3367b17-d7aa-43f7-8d83-023a440c001d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Profit = [Revenue] - [Total Cost]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 95b1b10f-683a-43ab-8656-eab4de2ec632
+
+	measure 'Margin %' = DIVIDE ( [Profit], [Revenue] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 9ffea27e-f2f1-45c8-b32e-0d41ad366d28
+
+	measure 'Revenue per Km' = DIVIDE ( [Revenue], [Total Km] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: cb5ac4e7-80d5-483d-b491-9e04d1256468
+
+	measure 'Total Pallets' = SUM ( fact_leg[Pallets] )
+		formatString: #,0
+		lineageTag: b9db1923-8c1a-41ea-a72e-1765e6678102
+
+	measure 'Pallets per Leg' = DIVIDE ( [Total Pallets], [Total Legs] )
+		lineageTag: 79433929-1136-4195-aeb8-87fa06006041
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Leg Revenue' = SUM ( fact_leg[Vehicle Revenue] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 83a365d1-a5aa-4661-bab1-fbf51d219820
+
+	measure 'Cost per Km' = DIVIDE ( [Total Cost], [Total Km] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 49841bd0-72e5-47dd-97fc-50cf493a2fac
+
+	measure 'Avg Revenue per Manifest' = DIVIDE ( [Revenue], [Total Manifests] )
+		lineageTag: 63091393-d3df-4dfe-964c-3f57f588e45f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Subby Revenue' = ```
+			
+			CALCULATE ( [Revenue], fact_manifest[Fleet Source] = "Subcontractor" )
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6fb2604a-cda0-4897-8a09-5a8f5968ba2e
+
+	measure 'Own Fleet Revenue' = ```
+			
+			CALCULATE ( [Revenue], fact_manifest[Fleet Source] = "Own Fleet" )
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 33b9c75f-2be3-4848-8f5e-2f885b55fcd9
+
+	measure 'Subby Share %' = ```
+			DIVIDE ( [Subby Revenue], [Revenue] )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: dbc6d156-66bc-40fc-bf54-720d88179f3d
+
+	measure 'Own Fleet Margin %' =
+			
+			CALCULATE ( [Margin %], fact_manifest[Fleet Source] = "Own Fleet" )
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		lineageTag: dd8b4b00-e6a3-4217-a388-0d5849d978bf
+
+	measure 'Subby Margin %' = ```
+			
+			CALCULATE ( [Margin %], fact_manifest[Fleet Source] = "Subcontractor" )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 224c9ba7-fdcb-4267-858c-f9cf39f044b4
+
+	measure 'Revenue PM' = ```
+			
+			CALCULATE ( [Revenue], DATEADD ( dim_date[Date], -1, MONTH ) )
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c52bdc8b-0be1-49a8-8781-574810242f41
+
+	measure 'Revenue MoM %' = DIVIDE ( [Revenue] - [Revenue PM], [Revenue PM] )
+		lineageTag: 647d8ef7-afc3-48f8-a8b4-8b56656c7683
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Routes' = DISTINCTCOUNT ( fact_manifest[Route] )
+		formatString: 0
+		lineageTag: f721a1df-9b74-4e2b-975b-a9a0d7bc6c60
+
+	measure 'Active Customers' = DISTINCTCOUNT ( fact_leg[Customer] )
+		formatString: 0
+		lineageTag: 513ce599-d61f-435e-a914-83a887d74d2b
+
+	measure 'Revenue per Pallet' = DIVIDE ( [Leg Revenue], [Total Pallets] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 0df82df3-9425-43fd-979c-ad6da81c0e5c
+
+	measure 'Fleet Size' = DISTINCTCOUNT ( fact_manifest[Vehicle] )
+		formatString: 0
+		lineageTag: 3f1561d2-fb66-4dd2-98ec-0d4e8f9796e8
+
+	measure 'Avg Profit per Vehicle' = DIVIDE ( [Profit], [Fleet Size] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: d66a4efb-dc49-4a0d-beb2-33ee928a1866
+
+	measure 'Truck Cost per Km' = DIVIDE ( [Truck Cost], [Total Km] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 5b5b783f-2c1b-4014-8cee-22f779977fd9
+
+	measure 'Profit per Km' = DIVIDE ( [Profit], [Total Km] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 21c2e24d-9c00-4d60-832d-25e16a144fb3
+
+	measure 'Active Drivers' = DISTINCTCOUNT ( fact_manifest[Driver] )
+		formatString: 0
+		lineageTag: 9daa6340-4a9a-4a9f-9fb9-a78d1807678a
+
+	measure 'Driver Days Worked' =
+			
+			COUNTROWS ( SUMMARIZE ( fact_manifest, fact_manifest[Driver], fact_manifest[ETD] ) )
+		formatString: 0
+		lineageTag: 51959161-2bb0-433c-baad-3a8ae966c28f
+
+	measure 'Revenue per Driver' = DIVIDE ( [Revenue], [Active Drivers] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 8a200e2a-4f03-40d2-b42a-79dbb32ab48b
+
+	measure 'Driver Cost % of Revenue' = DIVIDE ( [Driver Cost], [Revenue] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 6606394f-5511-4fe5-847b-36801dbe4968
+
+	measure 'Driver Cost per Km' = DIVIDE ( [Driver Cost], [Total Km] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 7eb695d0-7264-4d7b-8c3d-eae8c3b102a2
+
+	measure 'Avg Monthly Revenue' =
+			
+			AVERAGEX ( VALUES ( dim_date[Month Year] ), [Revenue] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: f776519c-98f5-49d2-ae63-db7f298ad826
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Peak Month' =
+			
+			MAXX ( TOPN ( 1, VALUES ( dim_date[Month Year] ), [Revenue], DESC ), dim_date[Month Year] )
+		lineageTag: cab363c2-a769-47ca-9629-9737055da4fb
+
+	measure 'Lowest Month' =
+			
+			MAXX (
+			    TOPN (
+			        1,
+			        FILTER ( VALUES ( dim_date[Month Year] ), NOT ISBLANK ( [Revenue] ) ),
+			        [Revenue], ASC
+			    ),
+			    dim_date[Month Year]
+			)
+		lineageTag: 7d27df5c-f2ac-4a64-9cec-312d01cc4fe7
+
+	measure 'Busiest Day' =
+			
+			MAXX ( TOPN ( 1, VALUES ( dim_date[Weekday] ), [Total Manifests], DESC ), dim_date[Weekday] )
+		lineageTag: d0b62c22-484d-400a-8c89-66d1a736b6be
+
+	measure 'Selected Route Title' =
+			
+			"Route Detail: " & SELECTEDVALUE ( dim_route[Route], "All routes" )
+		lineageTag: 8b08a84d-865d-4e7b-97cd-1dc37b0d3504
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 77f0ddbe-ffbc-4c38-85bf-f83783f920a8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measure = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 5973d3822d0c4839ae4fbbe5a2cbffd6
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

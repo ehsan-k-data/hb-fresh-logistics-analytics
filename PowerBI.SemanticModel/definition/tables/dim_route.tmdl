@@ -1,0 +1,33 @@
+table dim_route
+	lineageTag: 889fd595-7b0c-4540-9506-1bf608296e2c
+
+	column Route
+		dataType: string
+		lineageTag: a0127ed4-cfc6-488c-9232-7add3553f680
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Route Band'
+		dataType: string
+		lineageTag: d8e331c0-ebdf-4b15-bf72-43d3054d439d
+		summarizeBy: none
+		sourceColumn: Route Band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_route = m
+		mode: import
+		source =
+				let
+				    Source = fact_manifest,
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Manifest", "Vehicle", "Fleet Code", "ETA", "ETD", "Klm", "Driver", "Subby", "Origin", "Destination", "Items", "Weight", "Volume", "Amount", "Driver Cost", "Subby Cost", "Truck Cost"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns", {"Route"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

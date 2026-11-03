@@ -1,0 +1,52 @@
+table dim_driver
+	lineageTag: b1810c39-43a7-4c46-b4ea-0d835644fdb7
+
+	column 'Driver Code'
+		dataType: string
+		lineageTag: 86aa60ab-24c0-41d6-8087-36a62e997c87
+		summarizeBy: none
+		sourceColumn: Driver Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Driver Name'
+		dataType: string
+		lineageTag: 78d2695a-022d-4323-bd71-7a1b8e499049
+		summarizeBy: none
+		sourceColumn: Driver Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Base Depot'
+		dataType: string
+		lineageTag: edd7008b-680f-417d-9d7e-0ad130b5afb8
+		summarizeBy: none
+		sourceColumn: Base Depot
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Driver Role'
+		dataType: string
+		lineageTag: d03d754e-d47e-4eab-9af2-6b9276853fc9
+		summarizeBy: none
+		sourceColumn: Driver Role
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_driver = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_driver.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Driver Code", type text}, {"Driver Name", type text}, {"Base Depot", type text}, {"Driver Role", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

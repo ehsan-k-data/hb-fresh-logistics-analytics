@@ -1,0 +1,171 @@
+table fact_leg
+	lineageTag: 04e0c193-cf30-419f-a075-d23143eb0baa
+
+	column 'Fleet Code'
+		dataType: string
+		lineageTag: 0886bd94-fe58-45f6-9bb8-e042f41b46e7
+		summarizeBy: none
+		sourceColumn: Fleet Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cdd16dd8-16dc-4694-b637-6aeb3610352e
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Leg No'
+		dataType: int64
+		formatString: 0
+		lineageTag: 38b0aca0-4418-4d04-9e5e-a89074c29678
+		summarizeBy: none
+		sourceColumn: Leg No
+
+		annotation SummarizationSetBy = User
+
+	column Docket
+		dataType: int64
+		formatString: 0
+		lineageTag: 2edc0f33-4df7-47eb-ae6e-6c7436e14999
+		summarizeBy: none
+		sourceColumn: Docket
+
+		annotation SummarizationSetBy = User
+
+	column Manifest
+		dataType: int64
+		formatString: 0
+		lineageTag: 1650c4a3-dcc3-443d-9fed-c884cd1f2e69
+		summarizeBy: sum
+		sourceColumn: Manifest
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: string
+		lineageTag: 4be7946d-9b2b-42a7-9d20-2e90063b9cac
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sender
+		dataType: string
+		lineageTag: ae5c3d51-380a-4b81-94f7-953701deacf4
+		summarizeBy: none
+		sourceColumn: Sender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Receiver
+		dataType: string
+		lineageTag: 78c8aaf3-beb2-4a54-b6b1-488c0b4938d6
+		summarizeBy: none
+		sourceColumn: Receiver
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trailer
+		dataType: string
+		lineageTag: b36b9ce8-a6b5-482f-841b-cea2676748b2
+		summarizeBy: none
+		sourceColumn: Trailer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Driver
+		dataType: string
+		lineageTag: 8e5630bd-de09-479a-a172-559d26822a82
+		summarizeBy: none
+		sourceColumn: Driver
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subby
+		dataType: string
+		lineageTag: 9b630574-4db2-4287-af2c-a96d8244fa78
+		summarizeBy: none
+		sourceColumn: Subby
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vehicle Revenue'
+		dataType: double
+		lineageTag: ea3dbf3e-9463-459d-abaa-cb97f244c5cd
+		summarizeBy: sum
+		sourceColumn: Vehicle Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Klm
+		dataType: int64
+		formatString: 0
+		lineageTag: f57ae44b-fbfe-42a6-96f4-7b76a14ffd4c
+		summarizeBy: sum
+		sourceColumn: Klm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pallets
+		dataType: double
+		lineageTag: 203a6cd2-f00a-4c72-9f36-6f63e10d38ab
+		summarizeBy: sum
+		sourceColumn: Pallets
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RouteFrom
+		dataType: string
+		lineageTag: 658865c2-22f6-428b-9768-02653d884d8b
+		summarizeBy: none
+		sourceColumn: RouteFrom
+
+		annotation SummarizationSetBy = Automatic
+
+	column RouteTo
+		dataType: string
+		lineageTag: 1b795968-1c47-4629-9bce-471093cc8a5a
+		summarizeBy: none
+		sourceColumn: RouteTo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Route
+		dataType: string
+		lineageTag: e46ec8e3-d9a0-4703-bdf2-862fe17cb3c0
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_leg = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_leg.csv"),[Delimiter=",", Columns=15, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Fleet Code", type text}, {"Date", type date}, {"Leg No", Int64.Type}, {"Docket", Int64.Type}, {"Manifest", Int64.Type}, {"Customer", type text}, {"Route", type text}, {"Sender", type text}, {"Receiver", type text}, {"Trailer", type text}, {"Driver", type text}, {"Subby", type text}, {"Vehicle Revenue", type number}, {"Klm", Int64.Type}, {"Pallets", type number}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Changed Type", "Route", Splitter.SplitTextByEachDelimiter({"-"}, QuoteStyle.Csv, false), {"Route.1", "Route.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Route.1", type text}, {"Route.2", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Route.1", "RouteFrom"}, {"Route.2", "RouteTo"}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Renamed Columns",{{"RouteFrom", Text.Trim, type text}, {"RouteTo", Text.Trim, type text}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Trimmed Text", "Route", each Text.Combine({[RouteFrom], [RouteTo]}, "-"), type text)
+				in
+				    #"Inserted Merged Column"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

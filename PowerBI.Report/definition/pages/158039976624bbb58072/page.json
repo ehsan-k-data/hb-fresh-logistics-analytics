@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "158039976624bbb58072",
+  "displayName": "Own Fleet vs Subcontractors",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "1f98e64d3a93a6564c03",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "a0d04288c62e000373b8",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "6fa865505194a0e28a52",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "7037b4872dc717e6c767",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "5e7b81765312a1c75cba",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "07a75b3cb8e9a0ac1292",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "bfec892087cd034c2007",
+      "type": "DataFilter"
+    },
+    {
+      "source": "16db1f3b2924ac00aa0a",
+      "target": "080904e891350284946d",
+      "type": "DataFilter"
+    }
+  ]
+}
