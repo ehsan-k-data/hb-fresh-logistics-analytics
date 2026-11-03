@@ -6,7 +6,7 @@ The report answers one question: **where does the business make and lose money, 
 
 > All data is synthetic. Company, customer, driver and vehicle names are fictional. The dataset was modelled on how a real fresh-produce logistics operation records its trips and costs.
 
-![Home dashboard](images/home.png)
+![Home dashboard](images/Home.png)
 
 ---
 
@@ -55,9 +55,9 @@ Full write-up: [`Review_Report.pdf`](Review_Report.pdf) · Data dictionary: [`da
 
 | | |
 |---|---|
-| ![](images/trends.png) | ![](images/route_customer.png) |
-| ![](images/fleet.png) | ![](images/own_vs_subby.png) |
-| ![](images/tooltip.png) | ![](images/drillthrough.png) |
+| ![Trends](images/Trends%20%26%20Seasonality.png) | ![Route & Customer](images/Route%20%26%20Customer%20Profitability.png) |
+| ![Fleet](images/Fleet%20Performance.png) | ![Drivers](images/Driver%20Performance%20.png) |
+| ![Own vs Subby](images/Own%20Fleet%20vs%20Subcontractors.png) | |
 
 ---
 
