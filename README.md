@@ -69,7 +69,6 @@ A star schema with two fact tables at different grains:
 - **fact_leg**: one row per delivery or drop (customer, pallets, leg revenue)
 - **Dimensions:** dim_date, dim_route, dim_vehicle, dim_driver, dim_customer, dim_location, dim_subcontractor
 
-![Model](images/model.png)
 
 Modelling decisions:
 - **dim_route** is shared by both fact tables, so Route and Route Band filters apply to trip *and* customer figures.
