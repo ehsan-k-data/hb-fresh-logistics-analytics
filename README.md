@@ -36,7 +36,7 @@ The report answers one question: **where does the business make and lose money, 
 
 \*Profit = Revenue − Driver, Subcontractor and Truck costs. Overheads are not included.
 
-Full write-up: [`docs/Review_Report.pdf`](docs/Review_Report.pdf)
+Full write-up: [`Review_Report.pdf`](Review_Report.pdf) · Data dictionary: [`data_dictionary.md`](data_dictionary.md)
 
 ---
 
@@ -93,7 +93,6 @@ Modelling decisions:
 3. Open `PowerBI.pbip`.
 4. **Transform data → Edit parameters**, set `DataFolder` to the `data` folder in your copy (end the path with `\`), then **Refresh**.
 
-A PDF export of the report is in [`docs/HB_Fresh_Report.pdf`](docs/HB_Fresh_Report.pdf) if you just want to look.
 
 ## Repository structure
 
@@ -103,7 +102,8 @@ A PDF export of the report is in [`docs/HB_Fresh_Report.pdf`](docs/HB_Fresh_Repo
 ├── PowerBI.SemanticModel/    Model definition (tables, relationships, DAX in TMDL)
 ├── data/                     7 synthetic CSV files
 ├── theme/                    Custom report theme (JSON)
-├── docs/                     Review report, PDF export, data dictionary
+├── Review_Report.pdf         Findings and recommendations write-up
+├── data_dictionary.md        Tables, columns and measures explained
 └── images/                   Screenshots
 ```
 
