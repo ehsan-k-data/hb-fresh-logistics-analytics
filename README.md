@@ -77,6 +77,8 @@ Modelling decisions:
 - Customer analysis uses **leg revenue**. Costs are recorded per trip, so they aren't allocated to individual customers.
 - All relationships are single-direction, and fact-table keys are hidden.
 
+![Data model](images/model.png)
+
 ## Techniques used
 
 - **Power Query:** CSV ingestion, type setting, column split and merge, a parameterised data source (`DataFolder`)
