@@ -109,4 +109,4 @@ Modelling decisions:
 ## Author
 
 **Ehsan K.** · Graduate Certificate in Professional Data Analytics (Swinburne University)
-Built using hands-on experience as a driver and operations coordinator in refrigerated logistics.
+Built using hands-on experience operations coordinator in refrigerated logistics.
